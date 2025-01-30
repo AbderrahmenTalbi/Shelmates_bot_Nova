@@ -1,5 +1,4 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
-import initDB from '../db';
 
 
 export default {
