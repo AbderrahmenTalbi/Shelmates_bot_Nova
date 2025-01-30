@@ -3,7 +3,7 @@ import Bot from './lib/bot';
 import dotenv from "dotenv";
 import initDB from './db';
 import scheduleCommand from './prefixCommands/schedule';
-
+import handleReminders, { startReminderService } from './lib/reminderHandler';
 
 
 dotenv.config();
@@ -27,6 +27,17 @@ bot.client.on('messageCreate', async (message: Message) => {
     await scheduleCommand(message); 
   }
 });
+
+
+bot.client.once('ready', async () => {
+  try {
+    console.log('Bot is ready!');
+    startReminderService(bot.client);
+  } catch (error) {
+    console.error('Error starting reminder service:', error);
+  }
+});
+
 
 bot.client.login(process.env.TOKEN);
 
